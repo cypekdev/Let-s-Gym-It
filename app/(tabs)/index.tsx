@@ -1,15 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { /*Text,*/ StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { Text } from '@/components/Themed';
+import Calendar from '@/components/Calendar';
+import Advices from '@/components/Advices';
+import Objectives from '@/components/Objectives';
+import Statistics from '@/components/Statistics';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView>
+      <Text style={ [styles.header, {fontFamily: 'Oswald'}] }>Let's Gym It</Text>
+      <Calendar />
+      <Text style={ styles.header }>Advices</Text>
+      <Advices />
+      <Text style={ styles.header }>Objectives</Text>
+      <Objectives />
+      <Text style={ styles.header }>Statistics</Text>
+      <Statistics />
+    </SafeAreaView>
   );
 }
 
@@ -19,8 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
+  header: {
     fontSize: 20,
+    textAlign: 'center',
     fontWeight: 'bold',
   },
   separator: {
