@@ -1,8 +1,14 @@
 import { Text, View, StyleSheet } from 'react-native';
-
+import { router } from 'expo-router';
+import { useEffect } from 'react';
 // import { Text, View } from '@/components/Themed';
 
 export default function TrainerScreen() {
+  useEffect(() => {
+    router.push('/day')
+
+  },[])
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Here will be AI trainer</Text>

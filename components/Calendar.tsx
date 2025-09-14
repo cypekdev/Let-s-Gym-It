@@ -1,4 +1,4 @@
-import { /*Text, View,*/ StyleSheet } from "react-native";
+import { /*Text, View,*/ StyleSheet, Pressable } from "react-native";
 import { View, Text } from "./Themed";
 
 
@@ -6,24 +6,28 @@ interface Training {
 
 }
 
-interface Day {
+interface DayData {
   date: number;
   training?: Training;
 }
-type Week = Day[]
+type Week = DayData[]
 type DaysDictionary = [string, string, string, string, string, string, string]
 
+// function Day() {
+//   return (<View>
+//     <Pressable onPress={}>
+
+//     </Pressable>
+//   </View>)
+// }
 
 export default function Calendar() {
-
   const date = new Date()
-
   const calIterator = new Date()
-  calIterator.setDate(date.getDate() - date.getDay() + 1)
 
+  calIterator.setDate(date.getDate() - ((date.getDay() + 6)) % 7)
 
   const weekDictionary: DaysDictionary = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-
 
   const weeks: Week[] = []
 
