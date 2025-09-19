@@ -1,8 +1,10 @@
 import { Text } from "@/components/Themed";
+import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function day() {
+export default function Day() {
+  const { year, month, day } = useLocalSearchParams<{ year?: string; month?: string; day?: string }>()
   return (<SafeAreaView>
-    <Text>Dane</Text>
+    <Text>{day} {month} {year}</Text>
   </SafeAreaView>)
 }

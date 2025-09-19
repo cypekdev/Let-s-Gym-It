@@ -1,11 +1,17 @@
+import { useMemo } from "react";
 import { LineChart, CurveType } from "react-native-gifted-charts";
         
 export default function Statistics() {
-  const data: { value: number }[] = [];
 
-  for (let i = 0; i < 100; i++) {
-    data.push({value: Math.floor(Math.random() * 10)});  
-  }
+  const data = useMemo(() => {
+    const data: { value: number }[] = [];
+
+    for (let i = 0; i < 100; i++) {
+      data.push({value: Math.floor(Math.random() * 10)});  
+    }
+
+    return data;
+  }, [])
 
   return (
     <LineChart
