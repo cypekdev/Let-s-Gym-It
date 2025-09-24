@@ -13,25 +13,42 @@ export default function LoginScreen() {
 
   async function handleLogin() {
     try {
-      const res = await fetch('http://192.168.1.69:3000/login', {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      })
+      // const res = await fetch('http://192.168.1.3001/login', {
+      //   method: "POST",
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ username, password })
+      // })
       
-      const data = await res.json()
+      // const data = await res.json()
       
-      if (!res.ok) {
-        setMessage(data.message)
-        return;
+      // switch (data.status) {
+      //   case "AUTHORIZED": 
+      //     await SecureStore.setItemAsync("jwtToken", data.token)
+      //     router.navigate('/(tabs)')
+      //     break;
+      //   case "UNAUTHORIZED":
+      //     setMessage("Nieprawidłowe dane logowania")
+      //     break;
+      //   case "SERVER_ERROR":
+      //     router.navigate('/(tabs)')
+      //     setMessage("Wystąpił błąd, kontynuowanie w trybie online")
+      //     break;
+      //   default:
+      //     return;
+      //   }
+      //   router.navigate('/(tabs)')
 
-      }
+      // // if (!res.ok) {
+      // //   setMessage(data.message)
+      // //   return;
+
+      // // }
 
     
-      const token = data.token
+      // const token = data.token
       
-      await SecureStore.setItemAsync("jwtToken", token)
-      setMessage(token)
+      // await SecureStore.setItemAsync("jwtToken", token)
+      // setMessage(token)
 
       router.navigate('/(tabs)')
     }

@@ -1,3 +1,22 @@
+import { ColorValue } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+
+
+type ThemedStyles = {
+  text: ColorValue,
+  background: ColorValue,
+  tint: ColorValue,
+  tabIconDefault: ColorValue,
+  tabIconSelected: ColorValue,
+  border: ColorValue,
+  highlight: ColorValue,
+}
+
+interface Colors {
+  light: ThemedStyles,
+  dark: ThemedStyles
+}
+
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
@@ -8,6 +27,8 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
+    border: '#8e8e8e',
+    highlight: '#bebebeff',
   },
   dark: {
     text: '#fff',
@@ -15,5 +36,7 @@ export default {
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
+    border: '#3c3c3c',
+    highlight: '#222',
   },
-};
+} as Colors;

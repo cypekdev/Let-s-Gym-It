@@ -1,8 +1,14 @@
-import { /*Text, View,*/ StyleSheet, TouchableNativeFeedback } from "react-native";
+import { /*Text, View,*/ StyleSheet, TouchableNativeFeedback, useColorScheme } from "react-native";
 import { View, Text } from "./Themed";
 import { useMemo } from "react";
 import { router } from "expo-router";
+import Colors from "@/constants/Colors";
 
+
+export enum CalendarMode {
+  TWO_WEEKS,
+  MONTH
+}
 
 interface DayDate {
   year: number;
@@ -50,58 +56,81 @@ function Day({ date }: { date: DayDate }) {
 }
 
 
-export default function Calendar() {
+export default function Calendar({ mode = CalendarMode.MONTH }: { mode?: CalendarMode }) {
   const date = new Date()
   const calIterator = new Date()
 
-  calIterator.setDate(date.getDate() - ((date.getDay() + 6)) % 7)
 
   const weekDictionary: DaysDictionary = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
   const weeks: Week[] = []
 
-  for (let i = 0; i < 2; i++) {
-    const week: Week = [];
-    for (let j = 0; j < 7; j++) {
-      week.push( { date: getDayDate(calIterator) } )
-      calIterator.setDate( calIterator.getDate() + 1 )
-    }
-    weeks.push(week)
+  switch(mode) {
+    case CalendarMode.MONTH:
+      calIterator.setDate(1)
+      calIterator.setDate(-((date.getDay() + 6)) % 7)
+
+      for (let i = 0; i < 5; i++) {
+        const week: Week = [];
+        for (let j = 0; j < 7; j++) {
+          week.push( { date: getDayDate(calIterator) } )
+          calIterator.setDate( calIterator.getDate() + 1 )
+        }
+        weeks.push(week)
+      }
+      break;
+
+    case CalendarMode.TWO_WEEKS:
+      calIterator.setDate(date.getDate() - ((date.getDay() + 6)) % 7)
+
+      for (let i = 0; i < 2; i++) {
+        const week: Week = [];
+        for (let j = 0; j < 7; j++) {
+          week.push( { date: getDayDate(calIterator) } )
+          calIterator.setDate( calIterator.getDate() + 1 )
+        }
+        weeks.push(week)
+      }
+      break;
   }
 
 
-  return (<View style={ styles.calendar }>
-    <View style={ styles.calendarRow }>
-      {weekDictionary.map((day, index) => 
-        <View key={ index } style={ styles.calendarHeader }>
-          <Text>{ day }</Text>
-        </View>
-      )}
-    </View>
-
-    {weeks.map((week, index) => 
-      <View key={ index } style={ styles.calendarRow }>{
-        week.map(({ date }, index) => 
-          <Day key={ index } date={ date } />
+  return (
+    <View style={ styles.calendar }>
+      <View style={ styles.calendarRow }>
+        {weekDictionary.map((day, index) => 
+          <View key={ index } style={ styles.calendarHeader }>
+            <Text>{ day }</Text>
+          </View>
         )}
       </View>
-    )}
-  </View>)
+
+      <View style={ styles.calendarBody }>
+        {weeks.map((week, index) => 
+          <View key={ index } style={ styles.calendarRow }>{
+            week.map(({ date }, index) => 
+              <Day key={ index } date={ date } />
+            )}
+          </View>
+        )}
+      </View>
+    </View>)
 }
 
+
+const borderColor = useColorScheme() === 'dark' ? Colors.dark.border : Colors.light.border;
 
 
 const styles = StyleSheet.create({
   currentDay: {
-    backgroundColor: '#333a',
-    color: '#fff',
+    backgroundColor: useColorScheme() === 'dark' ? Colors.dark.highlight : Colors.light.highlight,
   },
   calendar: {
     flexDirection: 'column',
-    margin: 10
+    margin: 10,
   },
   calendarRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   calendarHeader: {
     flex: 1,
@@ -110,10 +139,16 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   calendarCell: {
-    borderWidth: 1,
-    borderColor: '#333',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderColor: borderColor,
     flex: 1,
     alignItems: 'center',
     height: 60,
+  },
+  calendarBody: {
+    borderColor: borderColor,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
   }
 })

@@ -4,8 +4,9 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from '@/components/useColorScheme';
+import Modal from '@/components/Modal';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -49,12 +50,15 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name='login' options={{ headerShown: false }} />
-        <Stack.Screen name='register' options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name='day' options={{ headerShown: false, presentation: 'modal' }} />
-      </Stack>
+      <GestureHandlerRootView>
+        <Stack>
+          <Stack.Screen name='login' options={{ headerShown: false }} />
+          <Stack.Screen name='register' options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name='day' options={{ headerShown: false, presentation: 'modal' }} />
+        </Stack>
+        <Modal />
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }
