@@ -41,7 +41,7 @@ export default function TrainerScreen() {
           <Text style={{ paddingVertical: 20 }}>Feel free to type your questions or requests below, and I'll do my best to help you achieve your fitness goals.</Text>
         </ScrollView>
         <View style={ styles.inputRow }>
-          <TextInput style={ [ styles.inputRowElement, styles.input ] }></TextInput>
+          <TextInput placeholderTextColor={ useColorScheme() === 'dark' ? Colors.dark.border : Colors.light.border } placeholder='Zapytaj trenera o plan' style={ [ styles.inputRowElement, styles.input ] }></TextInput>
           <SendButton />
         </View>
       </KeyboardAvoidingView>
@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     paddingHorizontal: 13,
-
+    color: useColorScheme() === 'dark' ? Colors.dark.text : Colors.light.text,
   }
 });
